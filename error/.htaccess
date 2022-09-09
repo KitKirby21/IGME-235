@@ -1,1 +1,2 @@
 ErrorDocument 404 /aqs2862/235/error/error.html
+DirectoryIndex noterror.html
