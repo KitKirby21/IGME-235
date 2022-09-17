@@ -1,0 +1,49 @@
+body {
+    background-color: #8C271E;
+}
+main {
+    margin: 0px 10%;
+}
+section.information {
+    border: 2px solid #000000;
+    border-radius: 8px;
+    margin: 1%;
+}
+
+h1 {
+    text-align: center;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    padding: 1em;
+    background-color: #FCF7F8;
+}
+a:link {
+    color: #6454f3;
+}
+a:visited {
+    color: #5246c2;
+}
+a:hover {
+    color: #7567f7;
+}
+a:focus {
+    color: #5b4af3;
+}
+a:active {
+    color: #39308b;
+}
+
+
+#information {
+    display: flex;
+    flex-direction: row;
+}
+#work_examples {
+    background-color: #E4D6A7;
+    width: fit-content;
+    padding: 1%;
+}
+#bio {
+    padding: 1%;
+    background-color: #FCF7F8;
+}
