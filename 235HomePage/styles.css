@@ -47,3 +47,6 @@ a:active {
     padding: 1%;
     background-color: #FCF7F8;
 }
+#profile_picture {
+    width: 30%;
+}
