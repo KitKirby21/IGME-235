@@ -1,0 +1,16 @@
+/* Do everything in this file */
+
+h2 {
+    border-bottom: 0.05em solid red;
+    clear: right;
+}
+figure {
+    float: right;
+    width: 40%;
+    margin: 1em;
+}
+div.tet {
+    float:left;
+    width: 50em;
+    border: 1em, solid red;
+}
