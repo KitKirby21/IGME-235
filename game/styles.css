@@ -1,0 +1,56 @@
+header {
+    background-color: black;
+}
+body {
+    background-color: rgb(149, 149, 223);
+}
+header>div {
+    display: flex;
+    flex-direction: row;
+    margin: 0 10%;
+}
+main {
+    margin: 0px 10%;
+    background-color: rgb(149, 149, 223);
+    padding: 10px;
+    font-family: Arial, sans-serif;
+}
+
+
+h1 { 
+    color:red;
+    font-family: sans-serif;
+    border-bottom: 1px solid blue;
+    }
+h2 {
+    color:orangered;
+    font-family: 'Bungee Spice', sans-serif;
+    margin: 1% 0;
+}
+h3 {
+    margin-top: 0;
+    margin-bottom: 1%;
+}
+ul {
+    margin-left: 100px;
+}
+blockquote { 
+    background-color: lightgray;
+    padding: 1rem;
+}
+p {
+    margin: 0 10%;
+}
+
+.side {
+    float: right;
+    margin-left: 10%;
+}
+#header_title {
+    max-height: 300px;
+    max-width: 79vw;
+}
+#header_logo {
+    width: 20vw;
+    aspect-ratio: 200/95;
+}
