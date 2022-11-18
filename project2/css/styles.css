@@ -1,15 +1,15 @@
 * {
-    font-family: verdana, tahoma, sans-serif;
+    font-family: 'Aldrich', sans-serif;
 }
 
 header {
-    background: url(../images/cats.jpg);
+    background: url(../images/moose.jpg);
     height: 195px;
 }
 
 header h1 {
-    margin: 0;
-    color: blue;
+    margin: 0 auto;
+    color: rgb(192, 38, 17);
     text-align: center;
     font-size: 100px;
     padding-top: 35px;
@@ -29,7 +29,7 @@ header h1 {
 
 #favorites {
     grid-area: favorites;
-    background-color: gray;
+    background-color: rgb(189, 188, 188);
     border-radius: 25px;
     padding: 0 10px;
 }
@@ -54,20 +54,19 @@ header h1 {
 
 .result img {
     position: relative;
-    width: 30%;
+    width: minmax(200px, 30%);
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.4);
     justify-content: left;
 }
 
-.result img:hover::after {
-    content: '';
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
-    width: 50px;
-    height: 50px;
-    background-color: red;
-    z-index: 999999;
+.result span a {
+    color: rgb(212, 64, 44);
+    text-decoration: none;
+}
+
+.result img:hover{
+    opacity: 70%;
+    color: white;
 }
 
 .result span {
@@ -76,41 +75,13 @@ header h1 {
     margin: 0 30px;
 }
 
-/* .result {
-    position: relative;
-    height: 175px;
-    width: 100px;
-    float: left;
-    border: 1px solid gray;
-    padding: 5px;
-    margin-left: 10px;
-    margin-bottom: 10px;
-}
-
-.result img {
-    position: absolute;
-    left: 5px;
-    bottom: 5px;
-    display: block;
-
-}
-
-.result span {
-    font-size: 12px;
-    font-weight: bold;
-    display: block;
-}
-
-.result audio {
-    width: 130px;
-} */
-
 .widgets {
     width: 60vw;
     margin: auto;
+    text-align: center;
 }
 
-button {
+.widgets button {
     display: inline-block;
     cursor: pointer;
 
@@ -127,28 +98,28 @@ button {
     text-decoration: none;
 }
 
-button.blue {
-    border-color: #4460db;
-    background: #0e34df;
-    background: linear-gradient(top, #0e34df 0%, #4460db 100%);
+.widgets button.blue {
+    border-color: #510a94;
+    background: #a922e7;
+    background: linear-gradient(top, #a922e7 0%, #510a94 100%);
 }
 
-button:hover {
-    background: #6780ee;
+.widgets button:hover {
+    background: #d767ee;
 }
 
-button:active {
-    background: #07229b;
+.widgets button:active {
+    background: #a7089f;
     box-shadow: 0 0 6px rgba(0, 0, 0, .6);
 }
 
-button:focus {
+.widgets button:focus {
     outline: 0;
 }
 
 .loader {
     border: 16px solid #f3f3f3;
-    border-top: 16px solid #3498db;
+    border-top: 16px solid #d767ee;
     border-radius: 50%;
     width: 120px;
     height: 120px;
@@ -163,4 +134,18 @@ button:focus {
 .widgets {
     margin-top: 1em;
     margin-bottom: 1em;
+}
+
+li {
+    list-style-type: none;
+}
+
+li a {
+    color: rgb(212, 64, 44);
+    text-decoration: none;
+}
+
+li img:hover{
+    opacity: 70%;
+    color: white;
 }

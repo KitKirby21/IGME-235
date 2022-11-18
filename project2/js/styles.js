@@ -2,7 +2,7 @@
 window.onload = (e) => {
     document.querySelector("#search").onclick = searchButtonClicked
     const searchTerm = document.querySelector("#searchterm");
-    
+
 
     const storedSearchTerm = localStorage.getItem(searchTermKey);
 
@@ -12,17 +12,19 @@ window.onload = (e) => {
     else {
         searchTerm.value = "";
     }
+
+    loadFavorites();
 };
 
 // 2
 let displayTerm = "";
 const prefix = "aqs2862-";
 const searchTermKey = prefix + "searchTerm";
+const favoritesKey = prefix + "favorites";
 
 // 3
 function searchButtonClicked() {
-    console.log("searchButtonClicked() called");
-    
+
     // 1
     const GIPHY_URL = "https://api.giphy.com/v1/gifs/search?";
 
@@ -60,8 +62,6 @@ function searchButtonClicked() {
     document.querySelector("#status").innerHTML = "<b>Searching for '" + displayTerm + "'</b>" +
         '<div class="loader"></div>';
 
-    // 11 - see what the URL looks like
-    console.log(url);
 
     getData(url);
 }
@@ -84,9 +84,6 @@ function getData(url) {
 function dataLoaded(e) {
     // 5 - event.target is the xhr object
     let xhr = e.target;
-
-    // 6 - xhr.responseText is the JSON file we just downloaded
-    console.log(xhr.responseText);
 
     // 7 - turn the text into a parsable JavaScript object
     let obj = JSON.parse(xhr.responseText);
@@ -121,29 +118,106 @@ function dataLoaded(e) {
         line += `<span><a target='_blank' href='${url}'>View on Giphy</a>`;
         line += `<p>Rating: ${rating}</span></div>`;
 
-        // 14 - another way of doing the same thing above
-        // Replaces this:
-        // var line = "<div class='result'>";
-        // line += "<img src='";
-        //line += smallURL;
-        //line += "' title= '";
-        //line += result.id;
-        //line += "/ />";
-        //
-        //line += "<span><a target='_blank' href='" + url + "'>View on Giphy</a></span>";
-        //line += "</div>";
-
-        // 15 - add the <div> to 'bigString' and loop
+        // 14 - add the <div> to 'bigString' and loop
         bigString += line;
     }
 
-    // 16 - all done building the HTML - show it to the user!
+    // 15 - all done building the HTML - show it to the user!
     document.querySelector("#content").innerHTML = bigString;
 
-    // 17 - update the status
+    let resultElements = document.querySelectorAll(".result");
+
+    resultElements.forEach((element) => {
+        const image = element.querySelector("img");
+        image.addEventListener("click", () => {
+            onFavorite(element);
+        });
+    })
+
+    // 16 - update the status
     document.querySelector("#status").innerHTML = "<b>Success</b><p><i>Here are " + results.length + " results for '" + displayTerm + "'</i></p>";
 }
 
 function dataError(e) {
     console.log(xhr.responseText);
+}
+
+function onFavorite(element) {
+    const imgsrc = element.querySelector("img").src;
+    const id = element.querySelector("img").title;
+    const href = element.querySelector("a").href;
+
+    if (!localStorage.getItem(favoritesKey)) {
+        let favorites = {
+            favorites: [
+                {
+                    imgsrc: imgsrc,
+                    id: id,
+                    href: href
+                }
+            ]
+        }
+        localStorage.setItem(favoritesKey, JSON.stringify(favorites));
+    }
+    else {
+        let favorites = JSON.parse(localStorage.getItem(favoritesKey));
+
+        let alreadyFavorited = false;
+        for (let obj in favorites.favorites) {
+            if (favorites.favorites[obj].id === id) {
+                favorites.favorites.splice(obj, 1);
+                alreadyFavorited = true;
+                break;
+            }
+        }
+
+        if (!alreadyFavorited) {
+            favorites.favorites.push({
+                imgsrc: imgsrc,
+                id: id,
+                href: href
+            })
+        }
+
+        if (favorites.favorites.length !== 0) {
+            localStorage.setItem(favoritesKey, JSON.stringify(favorites));
+        }
+        else {
+            localStorage.removeItem(favoritesKey);
+        }
+    }
+
+    loadFavorites();
+}
+
+function loadFavorites() {
+    const favoritesDiv = document.querySelector("#favorites");
+    const storedFavorites = JSON.parse(localStorage.getItem(favoritesKey));
+    if (storedFavorites) {
+        favoritesList = storedFavorites.favorites;
+        let bigString = "<h2>Favorites</h2>";
+        bigString += "<h3>Click the gif to unfavorite</h3>"
+        
+        bigString += "<ul>";
+        
+        for (let obj of favoritesList) {
+            bigString += `<li><a target='_blank' href='${obj.href}'>GIPHY Link</a>`
+            bigString += `<img src='${obj.imgsrc}' title='${obj.id}'></li>`;
+        }
+        bigString += "</ul>";
+
+        favoritesDiv.innerHTML = bigString;
+    }
+    else {
+        favoritesDiv.innerHTML = "<h2>Favorites</h2> <p>No favorites yet</p>";
+    }
+
+    let favoriteElements = document.querySelectorAll("#favorites ul li");
+
+    favoriteElements.forEach((element) => {
+        const image = element.querySelector("img");
+        image.addEventListener("click", () => {
+            onFavorite(element);
+        });
+    })
 }
