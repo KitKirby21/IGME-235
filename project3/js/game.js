@@ -1,47 +1,76 @@
 let lastRenderTime = 0
-const snakeSpeed = 8
-const snakeBody = [{x: 26, y: 26}]
+const snakeSpeed = 12
 const gameBoard = document.getElementById('game-board')
-const expansionRate = 4
+const expansionRate = 1
 const gridSize = 51
+const snakeBody = [{x: Math.ceil(gridSize/2), y: Math.ceil(gridSize/2)}]
 
-let newSegment = 0
-let food = {x: 5, y: 10}
-let inputDirection = {x: 0, y: 0}
-let lastInputDirection = {x: 0, y: 0}
-let gameOver = false
+let newSegment = null
+let food = null
+let inputDirection = null
+let lastInputDirection = null
+let isGameOver = null
+let score = null
 
-window.addEventListener('keydown', e => {
-    switch (e.key) {
-        case 'ArrowUp':
-            if (lastInputDirection.y !== 0) break
-            inputDirection = {x: 0, y: -1}
-            break
-        case 'ArrowDown':
-            if (lastInputDirection.y !== 0) break
-            inputDirection = {x: 0, y: 1}
-            break
-        case 'ArrowLeft':
-            if (lastInputDirection.x !== 0) break
-            inputDirection = {x: -1, y: 0}
-            break
-        case 'ArrowRight':
-            if (lastInputDirection.x !== 0) break
-            inputDirection = {x: 1, y: 0}
-            break
-    }
-})
 
-function main(currentTime) {
-    if (gameOver) {
-        if (confirm('You lost. Press ok to restart.')) {
-            window.location.reload()
+document.getElementById("start-game-button").onclick = startGame;
+
+function startGame() {
+    window.addEventListener('keydown', e => {
+        switch (e.key) {
+            case 'ArrowUp':
+                if (lastInputDirection.y !== 0) break
+                inputDirection = {x: 0, y: -1}
+                break
+            case 'ArrowDown':
+                if (lastInputDirection.y !== 0) break
+                inputDirection = {x: 0, y: 1}
+                break
+            case 'ArrowLeft':
+                if (lastInputDirection.x !== 0) break
+                inputDirection = {x: -1, y: 0}
+                break
+            case 'ArrowRight':
+                if (lastInputDirection.x !== 0) break
+                inputDirection = {x: 1, y: 0}
+                break
         }
+    })
+
+    //Sets snake body to center
+    while(snakeBody.length > 1) {
+        snakeBody.pop()
+    }
+    snakeBody[0] = {x: Math.ceil(gridSize/2), y: Math.ceil(gridSize/2)}
+    
+
+    //Resetting everything
+    newSegment = 0
+    food = getRandomFoodPosition()
+    inputDirection = {x: 0, y: 0}
+    lastInputDirection = {x: 0, y: 0}
+    isGameOver = false
+    score = 0
+
+    window.requestAnimationFrame(gameLoop);
+}
+
+function gameOver() {
+    isGameOver = false
+    gameBoard.innerHTML =  `<h1>Game Over</h1>
+                            <h2>Score: ${score}</h2>
+                            <button id="game-over-button">Play Again?</button>`
+    
+    document.getElementById("game-over-button").onclick = startGame;
+}
+
+function gameLoop(currentTime) {
+    if (isGameOver) {
+        gameOver()
         return
     }
-
     const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000
-    window.requestAnimationFrame(main)
+    window.requestAnimationFrame(gameLoop)
     if (secondsSinceLastRender < 1 / snakeSpeed) return
 
     lastRenderTime = currentTime
@@ -50,7 +79,7 @@ function main(currentTime) {
     draw()
 }
 
-window.requestAnimationFrame(main);
+//window.requestAnimationFrame(gameLoop);
 
 function update() {
 
@@ -68,6 +97,8 @@ function update() {
         expandSnake(expansionRate)
         food = getRandomFoodPosition()
     }
+
+    score = snakeBody.length - 1;
 
     //Check for death
     checkDeath()
@@ -149,5 +180,5 @@ function outsideGrid(position) {
 }
 
 function checkDeath() {
-    gameOver = outsideGrid(getSnakeHead()) || snakeIntersection()
+    isGameOver = outsideGrid(getSnakeHead()) || snakeIntersection()
 }

@@ -8,6 +8,58 @@ body {
     background-color: black;
 }
 
+h1 {
+    grid-row: 15/18;
+    grid-column: 11/41;
+    font-size: 100%;
+    text-align: center;
+}
+
+h2 {
+    grid-row: 18/20;
+    grid-column: 11/41;
+    font-size: 100%;
+    text-align: center;
+}
+
+button {
+    display: inline-block;
+    cursor: pointer;
+
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    padding: 10px 18px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+    font-size: 9.5pt;
+    font-weight: bold;
+    color: #fff;
+    border-color: #510a94;
+    background: #a922e7;
+    background: linear-gradient(top, #a922e7 0%, #510a94 100%);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+    font-family: sans-serif;
+    text-decoration: none;
+
+    margin: auto;
+    
+    grid-row: 20/40;
+    grid-column: 11/40;
+}
+
+button:hover {
+    background: #d767ee;
+}
+
+button:active {
+    background: #a7089f;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .6);
+}
+
+button:focus {
+    outline: 0;
+}
+
 #game-board {
     background-color: white;
     width: 100vmin;
