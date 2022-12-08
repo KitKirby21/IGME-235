@@ -37,16 +37,17 @@ function startGame() {
     
 
     //Resetting everything
-    
     food = getRandomFoodPosition()
     inputDirection = {x: 0, y: 0}
     lastInputDirection = {x: 0, y: 0}
     score = 0
+    
 
     window.requestAnimationFrame(gameLoop);
 }
 
 function gameOver() {
+    scoreHeader.innerHTML = ""
     gameBoard.innerHTML =  `<h1>Game Over</h1>
                             <h2>Score: ${score}</h2>
                             <button id="game-over-button">Play Again?</button>`
@@ -83,6 +84,7 @@ function update() {
     }
 
     score = snake.body.length - 1;
+
 
     //Check for death
     checkDeath()

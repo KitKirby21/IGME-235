@@ -2,10 +2,11 @@ body {
     height: 100vh;
     width: 100vw;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0;
-    background-color: black;
+    background-color: rgb(54, 10, 134);
 }
 
 h1 {
@@ -13,6 +14,7 @@ h1 {
     grid-column: 11/41;
     font-size: 100%;
     text-align: center;
+    color: white;
 }
 
 h2 {
@@ -20,6 +22,7 @@ h2 {
     grid-column: 11/41;
     font-size: 100%;
     text-align: center;
+    color: white;
 }
 
 button {
@@ -60,10 +63,18 @@ button:focus {
     outline: 0;
 }
 
+#score-header {
+    width: 90vmin;
+    height: 10vmin;
+    background-color: rgb(54, 10, 134);
+    color: white;
+}
+
 #game-board {
-    background-color: white;
-    width: 100vmin;
-    height: 100vmin;
+    background: url(../media/background.png) no-repeat;
+    background-size: cover;
+    width: 90vmin;
+    height: 90vmin;
     display: grid;
     grid-template-columns: repeat(51, 1fr);
     grid-template-rows: repeat(51, 1fr);

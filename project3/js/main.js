@@ -1,6 +1,7 @@
 let lastRenderTime = 0
 const updateSpeed = 12
 const gameBoard = document.getElementById('game-board')
+const scoreHeader = document.getElementById('score-header')
 const gridSize = 51
 const snake = new Snake()
 
@@ -47,6 +48,7 @@ function startGame() {
 }
 
 function gameOver() {
+    scoreHeader.innerHTML = ""
     gameBoard.innerHTML =  `<h1>Game Over</h1>
                             <h2>Score: ${score}</h2>
                             <button id="game-over-button">Play Again?</button>`
@@ -83,6 +85,7 @@ function update() {
     }
 
     score = snake.body.length - 1;
+    scoreHeader.innerHTML = `<h1>Score: ${score}</h1>`
 }
 
 function draw() {
