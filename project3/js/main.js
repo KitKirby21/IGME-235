@@ -61,7 +61,7 @@ function gameLoop(currentTime) {
     }
     const secondsSinceLastRender = (currentTime - lastRenderTime) / 1000
     window.requestAnimationFrame(gameLoop)
-    if (saecondsSinceLstRender < 1 / updateSpeed) return
+    if (secondsSinceLastRender < 1 / updateSpeed) return
 
     lastRenderTime = currentTime
 
@@ -83,9 +83,6 @@ function update() {
     }
 
     score = snake.body.length - 1;
-
-    //Check for death
-    checkDeath()
 }
 
 function draw() {
@@ -100,4 +97,12 @@ function draw() {
     foodElement.style.gridColumnStart = food.x
     foodElement.classList.add('food')
     gameBoard.appendChild(foodElement)
+}
+
+function getRandomFoodPosition() {
+    let newFoodPosition
+    while (newFoodPosition == null || snake.onSnake(newFoodPosition)) {
+        newFoodPosition = randomGridPosition()
+    }
+    return newFoodPosition
 }
