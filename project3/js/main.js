@@ -1,10 +1,17 @@
 let lastRenderTime = 0
-const updateSpeed = 12
+const updateSpeed = 16
 const gameBoard = document.getElementById('game-board')
 const scoreHeader = document.getElementById('score-header')
 const gridSize = 51
 const snake = new Snake()
+const planetList = ["media/planet-1.png",
+    "media/planet-2.png",
+    "media/planet-3.png",
+    "media/planet-4.png",
+    "media/planet-5.png",
+    "media/planet-6.png"]
 
+let currentPlanet = randomizePlanetFood()
 let food = null
 let score = null
 
@@ -39,6 +46,7 @@ function startGame() {
 
     //Resetting everything
     
+    currentPlanet = randomizePlanetFood()
     food = getRandomFoodPosition()
     inputDirection = {x: 0, y: 0}
     lastInputDirection = {x: 0, y: 0}
@@ -81,6 +89,7 @@ function update() {
     //Update Food
     if (snake.onSnake(food)) {
         snake.expandSnake()
+        currentPlanet = randomizePlanetFood()
         food = getRandomFoodPosition()
     }
 
@@ -99,6 +108,8 @@ function draw() {
     foodElement.style.gridRowStart = food.y
     foodElement.style.gridColumnStart = food.x
     foodElement.classList.add('food')
+    //console.log(currentPlanet)
+    foodElement.style.backgroundImage = `url(${planetList[currentPlanet]})`
     gameBoard.appendChild(foodElement)
 }
 
@@ -108,4 +119,8 @@ function getRandomFoodPosition() {
         newFoodPosition = randomGridPosition()
     }
     return newFoodPosition
+}
+
+function randomizePlanetFood() {
+    return Math.floor(Math.random() * planetList.length)
 }

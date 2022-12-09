@@ -86,6 +86,6 @@ button:focus {
 }
 
 .food {
-    background-color: red;
-    border: .25vmin solid black;
+    background: url(../media/planet-1.png) no-repeat;
+    background-size: cover;
 }
