@@ -25,6 +25,14 @@ h2 {
     color: white;
 }
 
+h3 {
+    grid-row: 20/22;
+    grid-column: 11/41;
+    font-size: 100%;
+    text-align: center;
+    color: white;
+}
+
 button {
     display: inline-block;
     cursor: pointer;

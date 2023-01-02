@@ -5,6 +5,7 @@ class Snake {
         this.newSegment= null
     }
 
+    //Moves snake along a given direction whenever it is run
     updateSnake() {
         this.addSegments()
         lastInputDirection = inputDirection
@@ -15,6 +16,7 @@ class Snake {
         this.body[0].y += inputDirection.y
     }
 
+    //Draws the snake according to the current position when run
     drawSnake(gameBoard) {
         this.body.forEach(segment => {
             const snakeElement = document.createElement('div')
@@ -25,10 +27,13 @@ class Snake {
         })
     }
 
+    //Expands the snake by the current expansion rate when it is run
     expandSnake() {
         this.newSegment += this.expansionRate
     }
     
+    //Checks if the given position overlaps with the snake
+    //Has an option to ignore the head of the snake
     onSnake(position, {ignoreHead = false} = {}) {
         return this.body.some((segment, index) => {
             if (ignoreHead && index === 0) return false
@@ -36,14 +41,17 @@ class Snake {
         })
     }
     
+    //Gets the position of the snake's head
     getSnakeHead() {
         return this.body[0]
     }
     
+    //Checks if the snake is intersecting with its own body
     snakeIntersection() {
         return this.onSnake(this.body[0], {ignoreHead: true})
     }
     
+    //Adds the required length of growth to the body array
     addSegments() {
         for (let i = 0; i < this.newSegment; i++) {
             this.body.push({...this.body[this.body.length - 1]})
@@ -52,10 +60,12 @@ class Snake {
         this.newSegment = 0
     }
     
+    //Checks if the snake should have died
     checkDeath() {
         return outsideGrid(this.getSnakeHead()) || this.snakeIntersection()
     }
 
+    //Resets the snake to its initial state along with moving it to the center of the grid
     resetSnake() {
         while(this.body.length > 1) {
             this.body.pop()
